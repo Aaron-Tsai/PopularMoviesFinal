@@ -47,6 +47,10 @@ public class NetworkUtils {
         return movieList;
     }
 
+    /**
+     * The following two methods, readFromStream and makeHttpRequest, were taken directly from Udacity's Quake Report app.
+     * The original source code is viewable here: https://github.com/udacity/ud843-QuakeReport/blob/lesson-four/app/src/main/java/com/example/android/quakereport/QueryUtils.java
+     */
     private static String readFromStream(InputStream inputStream) throws IOException {
         StringBuilder output = new StringBuilder();
         if (inputStream != null) {
