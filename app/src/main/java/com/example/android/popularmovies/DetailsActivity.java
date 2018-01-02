@@ -15,7 +15,7 @@ import com.squareup.picasso.Picasso;
 public class DetailsActivity extends AppCompatActivity {
 
     ProgressBar movieProgressBar;
-    LinearLayout movieDetails;
+    ScrollView movieDetails;
 
     TextView mMovieTitle;
     TextView mReleaseDate;
@@ -28,10 +28,10 @@ public class DetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
-        //movieProgressBar = findViewById(R.id.movie_details_loading);
-        // movieDetails = findViewById(R.id.movie_details);
+        movieProgressBar = findViewById(R.id.movie_details_loading);
+        movieDetails = findViewById(R.id.movie_details);
 
-        //showProgressBar();
+        showProgressBar();
 
         mMoviePoster = findViewById(R.id.details_activity_movie_poster);
         mMovieTitle = findViewById(R.id.details_activity_movie_title);
@@ -56,7 +56,7 @@ public class DetailsActivity extends AppCompatActivity {
         String voteAverage = String.valueOf(activityStarter.getDoubleExtra(getString(R.string.vote_average), 0));
         mVoteAverage.setText(voteAverage);
 
-        //showMovieDetails();
+        showMovieDetails();
     }
 
     public void showProgressBar() {
