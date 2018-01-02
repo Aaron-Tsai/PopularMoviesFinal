@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Popular Movies</string>
+
+    <string name="poster_path">Poster Path</string>
+    <string name="movie_title">Movie Title</string>
+    <string name="release_date">Release Date</string>
+    <string name="overview">Overview</string>
+    <string name="vote_average">Vote Average</string>
+
+    <string name="poster_url_base_path">https://image.tmdb.org/t/p/w500</string>
+
+    <string name="sort_by_popular">Popular</string>
+    <string name="sort_by_top_rated">Top Rated</string>
+
+    <string name="details_release_date">Release Date:</string>
+    <string name="details_overview">Overview:</string>
+    <string name="details_vote_average">Vote Average:</string>
+
+    <string name="json_results">title</string>
+    <string name="json_poster_path">title</string>
+    <string name="json_title">title</string>
+    <string name="json_release_date">title</string>
+    <string name="json_overview">title</string>
+    <string name="json_vote_average">title</string>
+
+</resources>
