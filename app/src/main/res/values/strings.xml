@@ -16,11 +16,6 @@
     <string name="details_overview">Overview:</string>
     <string name="details_vote_average">Vote Average:</string>
 
-    <string name="json_results">title</string>
-    <string name="json_poster_path">title</string>
-    <string name="json_title">title</string>
-    <string name="json_release_date">title</string>
-    <string name="json_overview">title</string>
-    <string name="json_vote_average">title</string>
+    <string name="image_description">Displays movie poster</string>
 
 </resources>

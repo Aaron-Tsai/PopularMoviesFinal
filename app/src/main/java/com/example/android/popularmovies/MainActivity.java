@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
     private final String topRatedMoviesUrl = "https://api.themoviedb.org/3/movie/top_rated?api_key=&language=en-US&page=1";
 
     private RecyclerView mRecyclerView;
-    private MovieAdapter mMovieAdapter;
+    private static MovieAdapter mMovieAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,12 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
         new FetchMovieListTask().execute(popularMoviesUrl);
     }
 
-    public class FetchMovieListTask extends AsyncTask<String, Void, Movie[]> {
+    /**
+     * The async task connects to the internet and provides the recycler view adapter with an array of Movie objects.
+     * The string it passes as a parameter is the Url to query the movie database. This string is passed down by doInBackground
+     * to NetworkUtils.fetchMovieList, which queries the Url and returns an array of Movie objects.
+     */
+    public static class FetchMovieListTask extends AsyncTask<String, Void, Movie[]> {
 
         @Override
         protected Movie[] doInBackground(String... strings) {
@@ -54,6 +59,10 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
         }
     }
 
+    /**
+     * An intent to open the movie details activity is launched upon a list item being clicked. The intent packages data from the Movie object
+     * that was passed to this method by the viewholder class's onClick method.
+     */
     @Override
     public void onListItemClick(Movie movieItem) {
         Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
@@ -67,6 +76,9 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
         startActivity(intent);
     }
 
+    /**
+     * The options menu has two buttons that toggle the recycler view items being sorted by popular and top rated movies.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();

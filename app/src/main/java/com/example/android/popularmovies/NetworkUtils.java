@@ -13,10 +13,13 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.Charset;
 
-public class NetworkUtils {
+class NetworkUtils {
 
     private static final String LOG_TAG = NetworkUtils.class.getSimpleName();
 
+    /**
+     * fetchMovieList queries a Url and returns an array of Movie objects.
+     */
     static Movie[] fetchMovieList(String queryUrl) {
         String jsonResponse = null;
         try {
@@ -27,6 +30,10 @@ public class NetworkUtils {
         return extractMovieList(jsonResponse);
     }
 
+    /**
+     * extractMovieList passes a JSON string as a parameter and parses it for data.
+     * It adds each of the data points to a Movie object, and returns an array of Movie objects that have been filled with the JSON data.
+     */
     private static Movie[] extractMovieList(String movieJSON) {
         Movie[] movieList = new Movie[20];
         if (TextUtils.isEmpty(movieJSON)) {return null;}
@@ -50,6 +57,8 @@ public class NetworkUtils {
     /**
      * The following two methods, readFromStream and makeHttpRequest, were taken directly from Udacity's Quake Report app.
      * The original source code is viewable here: https://github.com/udacity/ud843-QuakeReport/blob/lesson-four/app/src/main/java/com/example/android/quakereport/QueryUtils.java
+     * makeHttpRequest connects to the internet and returns a JSON string.
+     * readFromStream reads the server's JSON response and returns a JSON string (it's called from within makeHttpRequest)
      */
     private static String readFromStream(InputStream inputStream) throws IOException {
         StringBuilder output = new StringBuilder();

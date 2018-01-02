@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
 import com.squareup.picasso.Picasso;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
@@ -41,8 +42,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         View view = inflater.inflate(R.layout.movie_list_item, parent, false);
         return new MovieViewHolder(view);
     }
-    @Override
 
+    /**
+     * onBindViewHolder extracts a movie poster's url based on the adapter position and displays the poster.
+     */
+    @Override
     public void onBindViewHolder(MovieViewHolder holder, int position) {
         String posterPath = mMovieList[position].getMoviePoster();
         Context context = holder.itemView.getContext();
@@ -55,11 +59,19 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         return mMovieList.length;
     }
 
+    /**
+     * setMovieList updates the adapter with the data retrieved from the server, which it uses to populate the Main Activity's
+     * recycler view.
+     */
     public void setMovieList(Movie[] movieList) {
         mMovieList = movieList;
         notifyDataSetChanged();
     }
 
+    /**
+     * This interface is implemented by the Main Activity. The interface is informed by the viewholder's onClick method, which provides
+     * it with the appropriate adapter position when an item is clicked.
+     */
     public interface MovieAdapterOnClickHandler {
         void onListItemClick(Movie movieItem);
     }
