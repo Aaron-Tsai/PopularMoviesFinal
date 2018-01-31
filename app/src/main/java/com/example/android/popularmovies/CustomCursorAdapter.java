@@ -17,19 +17,20 @@ import com.squareup.picasso.Picasso;
 public class CustomCursorAdapter extends RecyclerView.Adapter<CustomCursorAdapter.MovieViewHolder> {
 
     private Cursor mCursor;
-    private Context mContext;
     private Movie[] mMovieList;
     private MovieAdapterOnClickHandler mClickHandler;
 
-    public CustomCursorAdapter(Context context) {mContext = context;}
+    public CustomCursorAdapter(){}
+    public CustomCursorAdapter(MovieAdapterOnClickHandler clickHandler) {
+        mClickHandler = clickHandler;
+
+    }
 
     @Override
     public MovieViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-        // Inflate the task_layout to a view
-        View view = LayoutInflater.from(mContext)
-                .inflate(R.layout.movie_list_item, parent, false);
-
+        Context context = parent.getContext();
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View view = inflater.inflate(R.layout.movie_list_item, parent, false);
         return new MovieViewHolder(view);
     }
 
