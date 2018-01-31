@@ -75,6 +75,5 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     public interface MovieAdapterOnClickHandler {
         void onListItemClick(Movie movieItem);
     }
+
 }
-
-

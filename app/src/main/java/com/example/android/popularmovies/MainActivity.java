@@ -12,10 +12,9 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity implements MovieAdapter.MovieAdapterOnClickHandler {
 
-    private final String popularMoviesUrl = "https://api.themoviedb.org/3/movie/popular?api_key=&language=en-US&page=1";
-    private final String topRatedMoviesUrl = "https://api.themoviedb.org/3/movie/top_rated?api_key=&language=en-US&page=1";
+    private final String popularMoviesUrl = "";
+    private final String topRatedMoviesUrl = "";
 
-    private RecyclerView mRecyclerView;
     private static MovieAdapter mMovieAdapter;
 
     @Override
@@ -23,13 +22,13 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mRecyclerView = findViewById(R.id.rv_movies);
+        RecyclerView movieRecyclerView = findViewById(R.id.rv_movies);
         mMovieAdapter = new MovieAdapter(this);
-        mRecyclerView.setAdapter(mMovieAdapter);
+        movieRecyclerView.setAdapter(mMovieAdapter);
 
         GridLayoutManager layoutManager = new GridLayoutManager(this, 4, GridLayoutManager.VERTICAL, false);
-        mRecyclerView.setLayoutManager(layoutManager);
-        mRecyclerView.setHasFixedSize(true);
+        movieRecyclerView.setLayoutManager(layoutManager);
+        movieRecyclerView.setHasFixedSize(true);
 
         new FetchMovieListTask().execute(popularMoviesUrl);
     }

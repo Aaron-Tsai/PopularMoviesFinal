@@ -1,20 +1,20 @@
 package com.example.android.popularmovies;
 
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
 public class DetailsActivity extends AppCompatActivity {
-
-    //private TextView mMovieTitle;
-    //private TextView mReleaseDate;
-    //private TextView mOverview;
-    //private TextView mVoteAverage;
-    //private ImageView mMoviePoster;
 
     /**
      * This activity is started by an intent being launched in the Main Activity. It takes the information that was packaged with
@@ -25,6 +25,8 @@ public class DetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
+
+
 
         ImageView moviePosterView = findViewById(R.id.details_activity_movie_poster);
         TextView movieTitleView = findViewById(R.id.details_activity_movie_title);
@@ -48,6 +50,17 @@ public class DetailsActivity extends AppCompatActivity {
 
         String voteAverage = String.valueOf(activityStarter.getDoubleExtra(getString(R.string.vote_average), 0));
         voteAverageView.setText(voteAverage);
+
+    }
+
+    public void onFavorite(View view) {
+
+        Intent activityStarter = getIntent();
+        String posterPath = activityStarter.getStringExtra(getString(R.string.poster_path));
+
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(MovieContract.MovieEntry.COLUMN_POSTER_PATH, posterPath);
 
     }
 
