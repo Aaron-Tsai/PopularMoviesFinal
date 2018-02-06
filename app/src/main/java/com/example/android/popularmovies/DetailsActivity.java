@@ -3,14 +3,18 @@ package com.example.android.popularmovies;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.squareup.picasso.Picasso;
 
@@ -51,9 +55,19 @@ public class DetailsActivity extends AppCompatActivity {
         String voteAverage = String.valueOf(activityStarter.getDoubleExtra(getString(R.string.vote_average), 0));
         voteAverageView.setText(voteAverage);
 
+        ToggleButton favoriteButton = (ToggleButton) findViewById(R.id.details_activity_favorite_button);
+        favoriteButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    onFavorite();
+                }
+            }
+        });
     }
 
-    public void onFavorite(View view) {
+
+    public void onFavorite() {
 
         Intent activityStarter = getIntent();
         String posterPath = activityStarter.getStringExtra(getString(R.string.poster_path));
@@ -61,7 +75,35 @@ public class DetailsActivity extends AppCompatActivity {
         ContentValues contentValues = new ContentValues();
 
         contentValues.put(MovieContract.MovieEntry.COLUMN_POSTER_PATH, posterPath);
+        Uri uri = getContentResolver().insert(MovieContract.MovieEntry.CONTENT_URI, contentValues);
 
+        if(uri != null) {
+            Toast.makeText(getBaseContext(), uri.toString(), Toast.LENGTH_LONG).show();
+        }
     }
 
+    public void onUnfavorite() {
+
+    }
+/*
+    public static class FetchTrailersAndReviews extends AsyncTask<String, Void, Movie[]> {
+
+        @Override
+        protected Movie[] doInBackground(String... strings) {
+            Movie movieList[];
+            try {
+                movieList = NetworkUtils.fetchMovieList(strings[0]);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+            return movieList;
+        }
+
+        @Override
+        protected void onPostExecute(Movie[] m) {
+            mMovieAdapter.setMovieList(m);
+        }
+    }
+*/
 }

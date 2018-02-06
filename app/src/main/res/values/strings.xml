@@ -6,6 +6,7 @@
     <string name="release_date">Release Date</string>
     <string name="overview">Overview</string>
     <string name="vote_average">Vote Average</string>
+    <string name="id">Id</string>
 
     <string name="poster_url_base_path">https://image.tmdb.org/t/p/w500</string>
 

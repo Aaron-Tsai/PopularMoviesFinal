@@ -22,8 +22,12 @@ class NetworkUtils {
      */
     static Movie[] fetchMovieList(String queryUrl) {
         String jsonResponse = null;
+        String trailerResponse = null;
+        String reviewResponse = null;
         try {
             jsonResponse = makeHttpRequest(new URL(queryUrl));
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -40,13 +44,15 @@ class NetworkUtils {
         try {
             JSONObject  baseJsonResponse = new JSONObject(movieJSON);
             JSONArray results = baseJsonResponse.getJSONArray("results");
+
             for (int i = 0; i < 20; i++) {
                 JSONObject movieIndex = results.getJSONObject(i);
                 movieList[i] = new Movie(movieIndex.getString("poster_path"),
                         movieIndex.getString("title"),
                         movieIndex.getString("release_date"),
                         movieIndex.getString("overview"),
-                        movieIndex.getDouble("vote_average"));
+                        movieIndex.getDouble("vote_average"),
+                        movieIndex.getInt("id"));
             }
         } catch (JSONException e) {
             e.printStackTrace();

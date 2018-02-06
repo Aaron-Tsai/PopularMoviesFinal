@@ -6,13 +6,15 @@ public class Movie {
     private String mReleaseDate;
     private String mOverview;
     private double mVoteAverage;
+    private int mId;
 
-    public Movie(String moviePoster, String title, String releaseDate, String overview, double voteAverage) {
+    public Movie(String moviePoster, String title, String releaseDate, String overview, double voteAverage, int id) {
         mMoviePoster = moviePoster;
         mTitle = title;
         mReleaseDate = releaseDate;
         mOverview = overview;
         mVoteAverage = voteAverage;
+        mId = id;
     }
 
     public String getMoviePoster() {
@@ -30,5 +32,6 @@ public class Movie {
     public double getVoteAverage() {
         return mVoteAverage;
     }
+    public int getId() {return mId;}
 }
 
