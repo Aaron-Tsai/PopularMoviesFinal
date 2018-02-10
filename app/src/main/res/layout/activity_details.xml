@@ -90,6 +90,14 @@
 
         </RelativeLayout>
 
+        <Button
+            android:id="@+id/details_activity_favorite_button"
+            android:text="@string/details_favorite_movie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp" />
 
         <TextView
             android:id="@+id/constant_overview"
@@ -111,10 +119,30 @@
             android:paddingBottom="16dp"
             android:paddingTop="8dp"/>
 
-        <ToggleButton
-            android:id="@+id/details_activity_favorite_button"
+
+        <Button
+            android:id="@+id/details_activity_trailer_button"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="@string/details_movie_trailer_text"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp" />
+
+        <TextView
+            android:textSize="25sp"
+            android:id="@+id/details_activity_review_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="16dp"
+            android:paddingLeft="16dp"
+            android:paddingTop="16dp"/>
+
+        <TextView
+            android:textSize="20sp"
+            android:id="@+id/details_activity_review"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp" />
 
     </LinearLayout>
 

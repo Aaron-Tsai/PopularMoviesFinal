@@ -3,10 +3,6 @@ package com.example.android.popularmovies;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
-/**
- * Created by Aaron on 1/30/2018.
- */
-
 public class MovieContract {
 
     public static final String AUTHORITY = "com.example.android.popularmovies";
@@ -21,7 +17,6 @@ public class MovieContract {
 
     public static final int favorites = 3;
 
-
     public static final class MovieEntry implements BaseColumns {
 
         public static final Uri CONTENT_URI =
@@ -31,5 +26,4 @@ public class MovieContract {
 
         public static final String COLUMN_POSTER_PATH = "poster_path";
     }
-
 }

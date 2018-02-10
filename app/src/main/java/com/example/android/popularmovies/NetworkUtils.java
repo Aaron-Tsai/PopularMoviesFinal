@@ -17,13 +17,50 @@ class NetworkUtils {
 
     private static final String LOG_TAG = NetworkUtils.class.getSimpleName();
 
+    static String[] extractExtras(String extraJSON) {
+        String[] extraList = new String[3];
+        if (TextUtils.isEmpty(extraJSON)) {return null;}
+        try {
+            JSONObject baseJsonResponse = new JSONObject(extraJSON);
+            JSONObject videos = baseJsonResponse.getJSONObject("videos");
+            JSONArray results = videos.getJSONArray("results");
+            JSONObject keyObject = results.getJSONObject(0);
+            String key = keyObject.getString("key");
+
+            JSONObject reviews = baseJsonResponse.getJSONObject("reviews");
+            JSONArray reviewResults = reviews.getJSONArray("results");
+            JSONObject reviewObject = reviewResults.getJSONObject(0);
+            String author = reviewObject.getString("author");
+            String content = reviewObject.getString("content");
+
+            extraList[0] = key;
+            extraList[1] = author;
+            extraList[2] = content;
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return extraList;
+    }
+
+    static String[] fetchExtras(String queryUrl) {
+        String jsonResponse = null;
+
+        try {
+            jsonResponse = makeHttpRequest(new URL(queryUrl));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return extractExtras(jsonResponse);
+    }
+
     /**
      * fetchMovieList queries a Url and returns an array of Movie objects.
      */
     static Movie[] fetchMovieList(String queryUrl) {
         String jsonResponse = null;
-        String trailerResponse = null;
-        String reviewResponse = null;
+
         try {
             jsonResponse = makeHttpRequest(new URL(queryUrl));
 

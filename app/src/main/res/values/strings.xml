@@ -12,10 +12,19 @@
 
     <string name="sort_by_popular">Popular</string>
     <string name="sort_by_top_rated">Top Rated</string>
+    <string name="sort_by_favorites">Favorites</string>
 
     <string name="details_release_date">Release Date:</string>
     <string name="details_overview">Overview:</string>
     <string name="details_vote_average">Vote Average:</string>
+    <string name="details_favorite_movie">Favorite this Movie</string>
+    <string name="details_movie_trailer_text">Movie Trailer</string>
+    <string name="movieID_key">movieID</string>
+    <string name="colon">:</string>
+    <string name="reviewed_by">Review by</string>
+    <string name="no_reviews_yet">No reviews yet.</string>
+    <string name="already_in_favorites">This movie is already in your Favorites</string>
+    <string name="added_to_favorites">Movie added to Favorites</string>
 
     <string name="image_description">Displays movie poster</string>
 

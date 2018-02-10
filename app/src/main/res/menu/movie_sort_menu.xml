@@ -14,7 +14,7 @@
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/sort_by_favorites"
-        android:title="Favorites"
+        android:title="@string/sort_by_favorites"
         app:showAsAction="ifRoom"/>
 
 </menu>

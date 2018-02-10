@@ -11,10 +11,6 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
-/**
- * Created by Aaron on 1/30/2018.
- */
-
 public class CustomCursorAdapter extends RecyclerView.Adapter<CustomCursorAdapter.MovieViewHolder> {
 
     private Cursor mCursor;

@@ -4,12 +4,11 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.PersistableBundle;
+import android.os.Bundle;
+import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v4.app.LoaderManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -24,7 +23,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
 
     private final String popularMoviesUrl = "";
     private final String topRatedMoviesUrl = "";
-    private final String trailersAndReviewsUrl = "";
+
 
     private static MovieAdapter mMovieAdapter;
     private CustomCursorAdapter mCursorAdapter;
@@ -58,15 +57,15 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
             default:
             case MovieContract.popularity:
                 new FetchMovieListTask().execute(popularMoviesUrl);
-                Log.v("Test", "popular");
+                Log.v(TAG, "popular");
                 break;
             case MovieContract.top_rated:
                     new FetchMovieListTask().execute(topRatedMoviesUrl);
-                Log.v("Test", "top");
+                Log.v(TAG, "top_rated");
                     break;
             case MovieContract.favorites:
                 movieRecyclerView.setAdapter(mCursorAdapter);
-                Log.v("Test", "favor");
+                Log.v(TAG, "favorite");
                 break;
 
 
@@ -134,16 +133,9 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(LIFE_CALL_BACK, mLastView);
-        Log.v("Test", "OnSaved");
+        Log.v(TAG, "OnSaved");
 
     }
-
- //   @Override
-  //  protected void onRestoreInstanceState(Bundle savedInstanceState) {
-  //      super.onRestoreInstanceState(savedInstanceState);
-  //      mLastView = savedInstanceState.getInt(LIFE_CALL_BACK);
-  //      Log.v("Test", "OnRestored");
-  //  }
 
 
 
@@ -175,6 +167,8 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
                     @Override
                     public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
                         // Here is where you'll implement swipe to delete
+                        if (mLastView != MovieContract.favorites) //Works on in favorites view
+                            return;
 
                         // COMPLETED (1) Construct the URI for the item to delete
                         //[Hint] Use getTag (from the adapter code) to get the id of the swiped item
@@ -201,7 +195,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
     }
 
     @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+    public Loader<Cursor> onCreateLoader(int id, final Bundle args) {
 
         return new AsyncTaskLoader<Cursor>(this) {
             // Initialize a Cursor, this will hold all the task data
