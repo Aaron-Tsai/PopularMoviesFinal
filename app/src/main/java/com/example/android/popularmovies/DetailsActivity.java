@@ -84,33 +84,25 @@ public class DetailsActivity extends AppCompatActivity implements android.suppor
 
     private Cursor searchForItem(String posterPath)
     {
-        int id = 1;
-
-        // Build appropriate uri with String row id appended
-        String stringId = Integer.toString(
-                id);
         Uri uri = MovieContract.MovieEntry.CONTENT_URI;
-        String[] projection = new String[] {MovieEntry.COLUMN_POSTER_PATH};
-        uri = uri.buildUpon().appendPath(stringId).build();
-        Cursor cursor = getContentResolver
-                ().query(uri, projection, null, null,null);
+        Cursor cursor = getContentResolver().query(uri, null, null, null,null);
         if (cursor != null) {
             int totalRows = cursor.getCount();
             Log.v(TAG, Integer.toString(totalRows));
-            if (totalRows != 0) //We have at least 1 favorite ite m
-            {
+            if (totalRows != 0) {
                 cursor.moveToFirst();
                 for (int i = 0; i < totalRows; i++) {
                     String path = cursor.getString(cursor.getColumnIndexOrThrow(MovieEntry.COLUMN_POSTER_PATH));
-
                     Log.v(TAG, "path="+path+",posterPath="+posterPath);
-                    if (path.equals(posterPath))
+                    if (path.equals(posterPath)) {
+                        cursor.close();
                         return (cursor);
+                    }
+                    cursor.moveToNext();
                 }
             }
         }
-
-        return null; //no match
+        return null;
     }
 
     public void onFavorite() {
