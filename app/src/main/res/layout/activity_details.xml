@@ -113,7 +113,7 @@
             android:id="@+id/details_activity_overview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="30sp"
+            android:textSize="25sp"
             android:paddingRight="16dp"
             android:paddingLeft="16dp"
             android:paddingBottom="16dp"

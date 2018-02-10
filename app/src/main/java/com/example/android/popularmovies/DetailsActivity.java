@@ -29,7 +29,7 @@ public class DetailsActivity extends AppCompatActivity implements android.suppor
     TextView reviewView;
     TextView authorView;
 
-    String youtubeBasePath = "https://www.youtube.com/watch?v=";
+    private final String youtubeBasePath = "https://www.youtube.com/watch?v=";
     private final String extras1 = "https://api.themoviedb.org/3/movie/";
     private final String extras2 = "?api_key=&append_to_response=videos,reviews";
     private static final String TAG = DetailsActivity.class.getSimpleName();
@@ -82,6 +82,11 @@ public class DetailsActivity extends AppCompatActivity implements android.suppor
         getSupportLoaderManager().initLoader(0, bundle, this);
     }
 
+    /*
+    searchForItem compares the posterPath of its row entries to the posterPath that it passes. If the posterPath matches, i.e.,
+    the user tries to add a favorite when it's already in their favorites list, searchForItem passes a Cursor to onFavorite, which
+    will prevent the user from adding the move as a favorite again.
+     */
     private Cursor searchForItem(String posterPath)
     {
         Uri uri = MovieContract.MovieEntry.CONTENT_URI;
@@ -93,7 +98,6 @@ public class DetailsActivity extends AppCompatActivity implements android.suppor
                 cursor.moveToFirst();
                 for (int i = 0; i < totalRows; i++) {
                     String path = cursor.getString(cursor.getColumnIndexOrThrow(MovieEntry.COLUMN_POSTER_PATH));
-                    Log.v(TAG, "path="+path+",posterPath="+posterPath);
                     if (path.equals(posterPath)) {
                         cursor.close();
                         return (cursor);
@@ -105,6 +109,9 @@ public class DetailsActivity extends AppCompatActivity implements android.suppor
         return null;
     }
 
+    /*
+    onFavorite inserts a row into the database based on the movie currently being examined in DetailsActivity.
+     */
     public void onFavorite() {
 
         Intent activityStarter = getIntent();
@@ -116,17 +123,14 @@ public class DetailsActivity extends AppCompatActivity implements android.suppor
         Cursor cursor=searchForItem(posterPath);
 
         if (cursor != null) {
-            Toast.makeText(getBaseContext(), posterPath + "Already in faviorite ", Toast.LENGTH_LONG)
-                    .show();
-            Log.v(TAG, posterPath + "Already in faviorite ");
+            Toast.makeText(getBaseContext(), R.string.already_in_favorites, Toast.LENGTH_SHORT).show();
             return;
         }
 
         Uri uri = getContentResolver().insert(MovieContract.MovieEntry.CONTENT_URI, contentValues);
 
         if(uri != null) {
-
-            Toast.makeText(getBaseContext(), uri.toString(), Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(), R.string.added_to_favorites, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -170,7 +174,8 @@ public class DetailsActivity extends AppCompatActivity implements android.suppor
             authorView.setText(authorText);
             reviewView.setText(review);
         } else {
-            authorView.setText(R.string.no_reviews_yet);
+            authorView.setVisibility(View.GONE);
+            reviewView.setText(R.string.no_reviews_yet);
         }
     }
 
