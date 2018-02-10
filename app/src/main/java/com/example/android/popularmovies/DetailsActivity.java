@@ -1,12 +1,9 @@
 package com.example.android.popularmovies;
 
-import android.app.LoaderManager;
 import android.content.ContentValues;
 import android.content.Intent;
-
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.Loader;
 
@@ -15,12 +12,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
-
 import com.example.android.popularmovies.MovieContract.MovieEntry;
 import com.squareup.picasso.Picasso;
 
@@ -37,7 +31,7 @@ public class DetailsActivity extends AppCompatActivity implements android.suppor
 
     String youtubeBasePath = "https://www.youtube.com/watch?v=";
     private final String extras1 = "https://api.themoviedb.org/3/movie/";
-    private final String extras2 = "";
+    private final String extras2 = "?api_key=&append_to_response=videos,reviews";
     private static final String TAG = DetailsActivity.class.getSimpleName();
 
     @Override
@@ -93,26 +87,29 @@ public class DetailsActivity extends AppCompatActivity implements android.suppor
         int id = 1;
 
         // Build appropriate uri with String row id appended
-        String stringId = Integer.toString(id);
+        String stringId = Integer.toString(
+                id);
         Uri uri = MovieContract.MovieEntry.CONTENT_URI;
         String[] projection = new String[] {MovieEntry.COLUMN_POSTER_PATH};
         uri = uri.buildUpon().appendPath(stringId).build();
-        Cursor cursor = getContentResolver().query(uri, projection, null, null,null);
+        Cursor cursor = getContentResolver
+                ().query(uri, projection, null, null,null);
         if (cursor != null) {
             int totalRows = cursor.getCount();
             Log.v(TAG, Integer.toString(totalRows));
-            if (totalRows != 0) //We have at least 1 favorite item
+            if (totalRows != 0) //We have at least 1 favorite ite m
             {
                 cursor.moveToFirst();
                 for (int i = 0; i < totalRows; i++) {
                     String path = cursor.getString(cursor.getColumnIndexOrThrow(MovieEntry.COLUMN_POSTER_PATH));
+
                     Log.v(TAG, "path="+path+",posterPath="+posterPath);
                     if (path.equals(posterPath))
-                        cursor.close();
                         return (cursor);
                 }
             }
         }
+
         return null; //no match
     }
 
@@ -122,22 +119,24 @@ public class DetailsActivity extends AppCompatActivity implements android.suppor
         String posterPath = activityStarter.getStringExtra(getString(R.string.poster_path));
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put(MovieContract.MovieEntry.COLUMN_POSTER_PATH, posterPath);
 
-        Cursor cursor = searchForItem(posterPath);
+        contentValues.put(MovieContract.MovieEntry.COLUMN_POSTER_PATH, posterPath);
+        Cursor cursor=searchForItem(posterPath);
 
         if (cursor != null) {
-            Toast.makeText(getBaseContext(), R.string.added_to_favorites, Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(), posterPath + "Already in faviorite ", Toast.LENGTH_LONG)
+                    .show();
+            Log.v(TAG, posterPath + "Already in faviorite ");
             return;
         }
 
         Uri uri = getContentResolver().insert(MovieContract.MovieEntry.CONTENT_URI, contentValues);
 
         if(uri != null) {
-            Toast.makeText(getBaseContext(), R.string.already_in_favorites, Toast.LENGTH_LONG).show();
+
+            Toast.makeText(getBaseContext(), uri.toString(), Toast.LENGTH_LONG).show();
         }
     }
-
 
     @Override
     public Loader<String[]> onCreateLoader(int id, final Bundle args) {

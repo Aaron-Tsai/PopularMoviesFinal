@@ -23,9 +23,7 @@ public class Movie {
     public String getTitle() {
         return mTitle;
     }
-    public String getReleaseDate() {
-        return mReleaseDate;
-    }
+    public String getReleaseDate() {return mReleaseDate;}
     public String getOverview() {
         return mOverview;
     }

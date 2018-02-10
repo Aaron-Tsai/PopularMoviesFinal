@@ -17,7 +17,11 @@ class NetworkUtils {
 
     private static final String LOG_TAG = NetworkUtils.class.getSimpleName();
 
-    static String[] extractExtras(String extraJSON) {
+
+    /*
+    extractExtras and fetchExtras connect to the internet and retrieve review and trailer information
+     */
+    private static String[] extractExtras(String extraJSON) {
         String[] extraList = new String[3];
         if (TextUtils.isEmpty(extraJSON)) {return null;}
         try {
@@ -36,8 +40,6 @@ class NetworkUtils {
             extraList[0] = key;
             extraList[1] = author;
             extraList[2] = content;
-
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
